@@ -4,10 +4,6 @@ const sequelize = require('../config/db');
 
 const initReservation = ReservationModel(sequelize, Sequelize);
 
-sequelize.sync()
-  .then(() => console.log('reservations table has been created successfully.'))
-  .catch(error => console.error('Unable to create reservations table:', error));
-
 class ReservationController {
   async createReservation(req, res) {
     const {

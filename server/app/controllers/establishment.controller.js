@@ -39,6 +39,25 @@ class EstablishmentController {
     }
   }
 
+  async getEstablishment(req, res) {
+    const establishmentId = req.params.id;
+
+    try {
+      const establishment = await initEstablishment.findOne({
+        where: { id: establishmentId },
+      });
+
+      if (!establishment) {
+        res.status(404).json({ message: 'Заведение не найдено' });
+      } else {
+        res.json({ establishment });
+      }
+    } catch (error) {
+      console.error('Произошла ошибка при получении заведения:', error);
+      res.status(500).json({ message: 'Произошла ошибка при получении заведения' });
+    }
+  }
+
   async updateEstablishment(req, res) {
     const establishmentId = req.params.id;
     const { establishment_name, painting_data } = req.body;
